@@ -18,10 +18,11 @@ def tf_config_from_slurm(ps_number, port_number=2222):
              task_name and task_id 
     """
     
-    nodelist = os.environ["SLURM_JOB_NODELIST"]
+    nodelist = os.environ["SLURM_NODELIST"]
     nodename = os.environ["SLURMD_NODENAME"]
     nodelist = _expand_nodelist(nodelist)
-    num_nodes = int(os.getenv("SLURM_JOB_NUM_NODES"))
+    #num_nodes = int(os.getenv("SLURM_JOB_NUM_NODES"))
+    num_nodes = len(nodelist)
     
     if len(nodelist) != num_nodes:
         raise ValueError("Number of slurm nodes {} not equal to {}".format(len(nodelist), num_nodes))
